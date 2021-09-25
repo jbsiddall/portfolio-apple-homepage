@@ -1,21 +1,47 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+
+const pages = [
+  {
+    name: "Apple Homepage",
+    github: "https://github.com/jbsiddall/portfolio-apple-homepage",
+    screenshot: "/apple_homepage.png",
+  }
+]
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <h1>Portfolio</h1>
+  <div class="grid">
+    <div v-for="page in pages" class="card__container" :key="page.name">
+      <img class="card__image" :src="page.screenshot" />
+      <div class="card__info">
+        <p>{{page.name}}</p>
+        <a :href="page.github">github</a>
+      </div>
+    </div>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  max-width: 1100px;
+  margin: 100px auto;
+}
+
+.card__container {
+  width: 200px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card__image {
+  width: 200px;
+  height: 200px;
+}
+
+.card__info {
+  padding: 16px;
 }
 </style>
