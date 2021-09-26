@@ -1,0 +1,105 @@
+@use "sass:map";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+$breakpoints: (
+  mobile: 734px,
+  tablet: 1068px,
+);
+
+$text_colors: (
+  light: #FFF,
+  dark: #231f20,
+);
+
+$link_colors: (
+  light: #fec2eb,
+  dark: #06c,
+);
+
+$background_colors: (
+  light: #f5f5f7,
+  dark: #35273c,
+);
+
+@mixin responsive($property, $mobile: null, $tablet: null, $desktop: null) {
+  @if $mobile {
+    @media (max-width: map.get($breakpoints, mobile)) {
+      #{$property}: #{$mobile};
+    }
+  }
+  @if $tablet {
+    @media (min-width: map.get($breakpoints, mobile) + 1px) and (max-width: map.get($breakpoints, tablet)) {
+      #{$property}: #{$tablet};
+    }
+  }
+  @if $desktop {
+    @media (min-width: map.get($breakpoints, tablet) + 1px) {
+      #{$property}: #{$desktop};
+    }
+  }
+}
+
+
+.text {
+  $self: &;
+  margin: 0px;
+  padding: 0px;
+
+  &--h1 {
+    @extend #{$self};
+    font-weight: 600;
+    @include responsive(font-size, $mobile: 90px, $tablet: 190px, $desktop: 260px);
+  }
+
+  &--h2 {
+    @extend #{$self};
+    font-weight: 400;
+    @include responsive(font-size, $mobile: 25px, $tablet: 35px, $desktop: 35px);
+  }
+
+  &--p {
+    @extend #{$self};
+    font-weight: 300;
+  }
+
+  &--dark {
+    @extend #{$self};
+    color: map.get($text_colors, dark);
+  }
+
+  &--light {
+    @extend #{$self};
+    color: map.get($text_colors, light);
+  }
+
+  &--center {
+    @extend #{$self};
+    text-align: center;
+  }
+}
+
+.link {
+  $self: &;
+  font-weight: 400;
+  font-size: 18px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &--dark {
+    @extend #{$self};
+    color: map.get($link_colors, dark);
+  }
+
+  &--light {
+    @extend #{$self};
+    color: map.get($link_colors, light);
+  }
+
+  &--white {
+    @extend #{$self};
+    color: white;
+  }
+}
